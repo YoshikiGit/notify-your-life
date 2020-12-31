@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import './components/notificationManagementPage.dart';
 
 void main() {
   runApp(MyApp());
@@ -34,7 +35,7 @@ class _MyHomePageState extends State<MyHomePage> {
   
   static List<Widget> _pageList = <Widget>[
     // ページ1の画面
-    Page1(),
+    NotificationManagementPage(),
     // ページ2の画面
     Page2(),
     // ページ3の画面
@@ -67,11 +68,11 @@ class _MyHomePageState extends State<MyHomePage> {
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
             icon: Icon(Icons.notifications_active),
-            title: Text('通知リスト'),
+            title: Text('通知管理'),
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.person),
-            title: Text('送信者リスト'),
+            title: Text('送信者管理'),
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.settings),
@@ -91,32 +92,7 @@ class _MyHomePageState extends State<MyHomePage> {
   
 }
 
-// （ページ1）左ページ
-class Page1 extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    // mockデータ
-    const data = [
-      "夕飯いる？", "今日帰宅する？"
-    ];
-    return MaterialApp(
-      home: Scaffold(
-      body: ListView.builder(
-        itemCount: data.length,
-        itemBuilder: (context, int index) {
-          return Padding(
-              padding: EdgeInsets.all(8.0),
-              child: Text(
-                data[index],
-              ));
-        },
-      ),
-      ),
-    );
-  }
-}
-
-// （ページ2）真ん中ページ
+// 仮ページ
 class Page2 extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -130,7 +106,7 @@ class Page2 extends StatelessWidget {
   }
 }
 
-// ページ3（右ページ）
+// 仮ページ
 class Page3 extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
