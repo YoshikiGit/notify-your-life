@@ -14,7 +14,7 @@ class MyApp extends StatelessWidget {
 
         primarySwatch: Colors.blue,
       ),
-      home: MyHomePage(title: 'NYL Home Page'),
+      home: MyHomePage(title: 'NotifyYourLife'),
     );
   }
 }
@@ -66,16 +66,16 @@ class _MyHomePageState extends State<MyHomePage> {
       bottomNavigationBar: BottomNavigationBar(
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
-            icon: Icon(Icons.home),
-            title: Text('ページ1'),
+            icon: Icon(Icons.notifications_active),
+            title: Text('通知リスト'),
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.directions_walk),
-            title: Text('ページ2'),
+            icon: Icon(Icons.person),
+            title: Text('送信者リスト'),
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.search),
-            title: Text('ページ3'),
+            icon: Icon(Icons.settings),
+            title: Text('設定'),
           ),
         ],
 
@@ -95,9 +95,23 @@ class _MyHomePageState extends State<MyHomePage> {
 class Page1 extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    print("page1");
-    return Text(
-      'ページ1',
+    // mockデータ
+    const data = [
+      "夕飯いる？", "今日帰宅する？"
+    ];
+    return MaterialApp(
+      home: Scaffold(
+      body: ListView.builder(
+        itemCount: data.length,
+        itemBuilder: (context, int index) {
+          return Padding(
+              padding: EdgeInsets.all(8.0),
+              child: Text(
+                data[index],
+              ));
+        },
+      ),
+      ),
     );
   }
 }
@@ -106,8 +120,12 @@ class Page1 extends StatelessWidget {
 class Page2 extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Text(
-      'ページ2',
+    return MaterialApp(
+      home: Scaffold(
+        body: const Center(
+          child: const Text('Page2'),
+        ),
+      ),
     );
   }
 }
@@ -116,8 +134,12 @@ class Page2 extends StatelessWidget {
 class Page3 extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Text(
-      'ページ3',
+    return MaterialApp(
+      home: Scaffold(
+        body: const Center(
+          child: const Text('Page3'),
+        ),
+      ),
     );
   }
 }
