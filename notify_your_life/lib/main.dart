@@ -42,7 +42,7 @@ class _MyHomePageState extends State<MyHomePage> {
     Page3()
   ];
 
-    void _onItemTapped(int index) {
+  void _onItemTapped(int index) {
     setState(() {
       _selectedIndex = index;
     });

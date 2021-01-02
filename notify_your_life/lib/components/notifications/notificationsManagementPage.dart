@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import './registNotification/registNotificationPage.dart';
 
 class NotificationsManagementPage extends StatelessWidget {
   @override
@@ -11,7 +12,7 @@ class NotificationsManagementPage extends StatelessWidget {
           IconButton(
             icon: Icon(Icons.add),
             padding: const EdgeInsets.all(15.0),
-            onPressed: () => kari(),
+            onPressed: () => kari(context),
           ),
         ]
       ),
@@ -54,7 +55,14 @@ class NotificationsManagementPage extends StatelessWidget {
     );
   }
 
-  void kari () {
-
-  }
+  void kari (BuildContext context) {
+    Navigator.push(
+      context,
+      new MaterialPageRoute<Null>(
+        settings: const RouteSettings(name: "/my-page-2"),
+        builder: (BuildContext context) => RegistNotificationPage(),
+        fullscreenDialog: true, // ダイアログで表示するかどうか
+        ),
+      );
+  }  
 }
