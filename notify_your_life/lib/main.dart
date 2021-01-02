@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import './components/notificationManagementPage.dart';
+import './components/notifications/notificationsManagementPage.dart';
 
 void main() {
   runApp(MyApp());
@@ -35,7 +35,7 @@ class _MyHomePageState extends State<MyHomePage> {
   
   static List<Widget> _pageList = <Widget>[
     // ページ1の画面
-    NotificationManagementPage(),
+    NotificationsManagementPage(),
     // ページ2の画面
     Page2(),
     // ページ3の画面
@@ -57,11 +57,6 @@ class _MyHomePageState extends State<MyHomePage> {
     // fast, so that you can just rebuild anything that needs updating rather
     // than having to individually change instances of widgets.
     return Scaffold(
-      appBar: AppBar(
-        // Here we take the value from the MyHomePage object that was created by
-        // the App.build method, and use it to set our appbar title.
-        title: Text(widget.title),
-      ),
       body: _pageList[_selectedIndex],
       // 下のナビゲーションボタン
       bottomNavigationBar: BottomNavigationBar(

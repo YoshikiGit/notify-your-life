@@ -1,20 +1,27 @@
 import 'package:flutter/material.dart';
 
-class NotificationManagementPage extends StatelessWidget {
+class NotificationsManagementPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // mockデータ
-    return MaterialApp(
-      home: Scaffold(
-        body: ListView(
-          children: [
-            menuItem("夕飯いる？", Icon(Icons.notifications_outlined )),
-            menuItem("今日迎え来れる？", Icon(Icons.notifications_outlined )),
-            menuItem("今日帰宅する？", Icon(Icons.notifications_outlined )),
-          ],
-        ),
-        
+    return Scaffold(
+      appBar: AppBar(
+        title: Text("通知管理"),
+        actions: <Widget>[
+          IconButton(
+            icon: Icon(Icons.add),
+            padding: const EdgeInsets.all(15.0),
+            onPressed: () => kari(),
+          ),
+        ]
       ),
+      body: ListView(
+        children: [
+          menuItem("夕飯いる?", Icon(Icons.notifications_outlined )),
+          menuItem("今日迎え来れる？", Icon(Icons.notifications_outlined )),
+          menuItem("今日帰宅する？", Icon(Icons.notifications_outlined )),
+        ],
+      ),  
     );
   }
 
@@ -45,5 +52,9 @@ class NotificationManagementPage extends StatelessWidget {
         print("onTap called.");
       },
     );
-  } 
+  }
+
+  void kari () {
+
+  }
 }
