@@ -33,21 +33,34 @@ class NotificationsManagementPage extends StatelessWidget {
         decoration: new BoxDecoration(
           border: new Border(bottom: BorderSide(width: 1.0, color: Colors.grey))
         ),
-        child: Row(
+        child:Row(
           children: <Widget>[
-            Container(
+            Expanded(
+              flex: 1, child: Container(
               margin: EdgeInsets.all(10.0),
               child:icon,
+            )
             ),
-            Text(
+            Expanded(
+              flex: 5, child: Text(
               title,
               style: TextStyle(
                 color:Colors.black,
                 fontSize: 18.0
               ),
+            )
+            ),
+            Expanded(
+              flex:1,
+              child: RaisedButton(
+              onPressed: () {},
+              padding: const EdgeInsets.all(0.0),
+              child: const Text('編集', style: TextStyle(fontSize: 20)),
+              )
             ),
           ],
-        )
+        ),
+        
       ),
       onTap: () {
         print("onTap called.");
