@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import './registNotification/registNotificationPage.dart';
 
 class NotificationsManagementPage extends StatelessWidget {
+  
   @override
   Widget build(BuildContext context) {
+    
     // mockデータ
     return Scaffold(
       appBar: AppBar(
@@ -12,21 +15,21 @@ class NotificationsManagementPage extends StatelessWidget {
           IconButton(
             icon: Icon(Icons.add),
             padding: const EdgeInsets.all(15.0),
-            onPressed: () => kari(context),
+            onPressed: () => naviRegistModal(context),
           ),
         ]
       ),
       body: ListView(
         children: [
-          menuItem("夕飯いる?", Icon(Icons.notifications_outlined )),
-          menuItem("今日迎え来れる？", Icon(Icons.notifications_outlined )),
-          menuItem("今日帰宅する？", Icon(Icons.notifications_outlined )),
+          menuItem("夕飯いる?", Icon(Icons.notifications_outlined), context),
+          menuItem("今日迎え来れる？", Icon(Icons.notifications_outlined), context),
+          menuItem("今日帰宅する？", Icon(Icons.notifications_outlined), context),
         ],
       ),  
     );
   }
 
-  Widget menuItem(String title, Icon icon) {
+  Widget menuItem(String title, Icon icon, BuildContext context) {
     return GestureDetector(
       child:Container(
         padding: EdgeInsets.all(8.0),
@@ -53,7 +56,7 @@ class NotificationsManagementPage extends StatelessWidget {
             Expanded(
               flex:1,
               child: RaisedButton(
-              onPressed: () {},
+              onPressed: () => naviRegistModal(context),
               padding: const EdgeInsets.all(0.0),
               child: const Text('編集', style: TextStyle(fontSize: 20)),
               )
@@ -63,12 +66,21 @@ class NotificationsManagementPage extends StatelessWidget {
         
       ),
       onTap: () {
-        print("onTap called.");
+        execute();
       },
     );
   }
 
-  void kari (BuildContext context) {
+  execute ()  {
+    readNotification();
+  }
+
+  readNotification () async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    print(prefs.getString('test'));
+  }
+
+  void naviRegistModal (BuildContext context) {
     Navigator.push(
       context,
       new MaterialPageRoute<Null>(
