@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
+import '../../../models/notification_info_data.dart';
 
 class RegistNotificationPage extends StatelessWidget {
   var notificationNameController = TextEditingController();
@@ -57,10 +57,12 @@ class RegistNotificationPage extends StatelessWidget {
     executeRegist();
   }
 
+  // 通知の登録
   executeRegist() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     print("-----");
     print(notificationNameController.text);
+    final ntcfInfo = NotificationInfoData(notificationNameController.text, 'Slime');
     await prefs.setString('test', notificationNameController.text);
   }
 }

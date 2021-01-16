@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import './registNotification/registNotificationPage.dart';
+import './registNotification/regist_notification_page.dart';
+import '../../common/process_common.dart';
 
 class NotificationsManagementPage extends StatelessWidget {
   
@@ -66,13 +67,15 @@ class NotificationsManagementPage extends StatelessWidget {
         
       ),
       onTap: () {
-        execute();
+        execute(context);
+
       },
     );
   }
 
-  execute ()  {
+  execute (BuildContext context)  {
     readNotification();
+    ProcessCommon.confirmDialog(context, "通知確認", "こちらの内容で通知します", "通知する", "キャンセル");
   }
 
   readNotification () async {

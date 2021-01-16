@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import './components/notifications/notificationsManagementPage.dart';
+import './components/notifications/notifications_management_page.dart';
 
 void main() {
   runApp(MyApp());
