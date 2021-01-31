@@ -1,8 +1,9 @@
-import 'package:flutter/material.dart';
-
 class NotificationInfoData {
+
+  // 通知のタイトル
   String title;
 
+  // 送信先
   String target;
 
   NotificationInfoData(this.title, this.target);

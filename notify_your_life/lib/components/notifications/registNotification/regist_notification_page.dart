@@ -64,10 +64,24 @@ class RegistNotificationPage extends StatelessWidget {
   // 通知の登録
   executeRegist() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
-    print("-----");
-    print(notificationNameController.text);
+    List<NotificationInfoData> ntfcList= new List<NotificationInfoData>();
+
+    if (prefs.getString('ntfcList') != null) {
+      // 通知リストの呼び出し
+      List<dynamic> readJson = jsonDecode(prefs.getString('ntfcList'));
+      print(readJson);
+      ntfcList = readJson.map((i) => new NotificationInfoData.fromJson(i)).toList();
+    }
+    
     final ntcfInfo = NotificationInfoData(notificationNameController.text, targetController.text);
-    String jsonString = jsonEncode(ntcfInfo);
-    await prefs.setString('test', jsonString);
+
+    // 通知リストへ追加
+    ntfcList.add(ntcfInfo);
+
+    String jsonString = jsonEncode(ntfcList);
+    print(jsonString);
+
+    // データを保存
+    await prefs.setString('ntfcList', jsonString);
   }
 }
