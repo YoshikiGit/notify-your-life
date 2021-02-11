@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import '../../main.dart';
 import 'package:notify_your_life/models/notification_info_data.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import './registNotification/regist_notification_page.dart';
 import '../../common/process_common.dart';
 import 'dart:convert';
+import 'package:flutter_slidable/flutter_slidable.dart';
 
 class NotificationsManagementPage extends StatelessWidget {
   List<NotificationInfoData> ntfcList = new List<NotificationInfoData>();
@@ -28,7 +30,7 @@ class NotificationsManagementPage extends StatelessWidget {
             body: ListView.builder(
               itemCount: ntfcList.length,
               itemBuilder: (context, index) {
-                return menuItem(ntfcList[index].title, context);
+                return menuItem(index, ntfcList[index].title, context);
               },
             )
           );
@@ -39,8 +41,9 @@ class NotificationsManagementPage extends StatelessWidget {
     );
   }
 
-  Widget menuItem(String title, BuildContext context) {
-    return GestureDetector(
+  Slidable menuItem(int index, String title, BuildContext context) {
+    return Slidable(
+      actionPane: SlidableDrawerActionPane(),
       child:Container(
         padding: EdgeInsets.all(8.0),
         decoration: new BoxDecoration(
@@ -65,21 +68,58 @@ class NotificationsManagementPage extends StatelessWidget {
                 ),
               )
             ),
-            Expanded(
-              flex:1,
-              child: RaisedButton(
-                onPressed: () => naviRegistModal(context),
-                padding: const EdgeInsets.all(0.0),
-                child: const Text('編集', style: TextStyle(fontSize: 20)),
-              )
-            ),
+            //Expanded(
+            //  flex:1,
+            //  child: RaisedButton(
+            //    onPressed: () => naviRegistModal(context),
+            //    padding: const EdgeInsets.all(0.0),
+            //    child: const Text('編集', style: TextStyle(fontSize: 20)),
+            //  )
+            //),
           ],
         ),
       ),
-      onTap: () {
-        execute(context);
-      },
+      secondaryActions: <Widget>[
+        IconSlideAction(
+          caption: 'Archive',
+          color: Colors.red,
+          icon: Icons.archive,
+          onTap: () => _showSnackBar(index, 'Archive', context),
+        ),
+        IconSlideAction(
+          caption: 'Edit',
+          color: Colors.indigo,
+          icon: Icons.edit_sharp,
+          onTap: () => _showSnackBar(index, 'Edit', context),
+          ),
+        ],
+        //onTap: () {
+          //execute(context);
+        //},
     );
+  }
+
+  // スライダーのボタン押下
+  Future<void> _showSnackBar(int index, String mode, BuildContext context) async {
+
+    if (mode == "Edit") {
+
+    } else if (mode == "Archive") {
+      // 通知の削除
+      ntfcList.removeAt(index);
+      await executeRegist(ntfcList, context);
+    }
+  }
+
+  // 通知の登録
+  executeRegist(List<NotificationInfoData> ntfcList, BuildContext context) async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+
+    String jsonString = jsonEncode(ntfcList);
+    print(jsonString);
+
+    // データを保存
+    await prefs.setString('ntfcList', jsonString);
   }
 
   execute (BuildContext context)  {
@@ -92,6 +132,7 @@ class NotificationsManagementPage extends StatelessWidget {
     );
   }
 
+  // 通知の呼び出し
   Future<int> executeRead (BuildContext context) {
     ntfcList.clear();
     readNotification(context);
