@@ -41,41 +41,34 @@ class NotificationsManagementPage extends StatelessWidget {
     );
   }
 
-  Slidable menuItem(int index, String title, BuildContext context) {
-    return Slidable(
-      actionPane: SlidableDrawerActionPane(),
-      child:Container(
-        padding: EdgeInsets.all(8.0),
-        decoration: new BoxDecoration(
-          border: new Border(bottom: BorderSide(width: 1.0, color: Colors.grey))
-        ),
-        child:Row(
-          children: <Widget>[
-            Expanded(
-              flex: 1, 
-              child: Container(
-                margin: EdgeInsets.all(10.0),
-                child: Icon(Icons.notifications_outlined),
-              )
-            ),
-            Expanded(
-              flex: 5, 
-              child: Text(
-                title,
-                style: TextStyle(
-                  color:Colors.black,
-                  fontSize: 18.0
-                ),
-              )
-            ),
-            //Expanded(
-            //  flex:1,
-            //  child: RaisedButton(
-            //    onPressed: () => naviRegistModal(context),
-            //    padding: const EdgeInsets.all(0.0),
-            //    child: const Text('編集', style: TextStyle(fontSize: 20)),
-            //  )
-            //),
+  InkWell menuItem(int index, String title, BuildContext context) {
+    return InkWell(
+      child: Slidable(
+        actionPane: SlidableDrawerActionPane(),
+        child:Container(
+         padding: EdgeInsets.all(8.0),
+          decoration: new BoxDecoration(
+            border: new Border(bottom: BorderSide(width: 1.0, color: Colors.grey))
+          ),
+          child:Row(
+            children: <Widget>[
+              Expanded(
+                flex: 1, 
+                child: Container(
+                  margin: EdgeInsets.all(10.0),
+                  child: Icon(Icons.notifications_outlined),
+                )
+              ),
+              Expanded(
+                flex: 5, 
+                child: Text(
+                  title,
+                  style: TextStyle(
+                    color:Colors.black,
+                    fontSize: 18.0
+                  ),
+                )
+              ),
           ],
         ),
       ),
@@ -93,9 +86,10 @@ class NotificationsManagementPage extends StatelessWidget {
           onTap: () => _showSnackBar(index, 'Edit', context),
           ),
         ],
-        //onTap: () {
-          //execute(context);
-        //},
+      ),
+      onTap: () {
+        execute(context);
+      },
     );
   }
 
@@ -126,7 +120,7 @@ class NotificationsManagementPage extends StatelessWidget {
     ProcessCommon.confirmDialog(
       context, 
       "通知確認", 
-      "こちらの内容で通知します", 
+      "こちらの内容で通知します。", 
       "通知する", 
       "キャンセル"
     );
