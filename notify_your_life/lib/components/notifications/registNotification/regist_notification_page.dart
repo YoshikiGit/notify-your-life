@@ -4,8 +4,17 @@ import '../../../models/notification_info_data.dart';
 import 'dart:convert';
 
 class RegistNotificationPage extends StatelessWidget {
+  // 受け取ったパラメータをいれておくとこ
+  final String paramIndex;
+  final String paramTitle;
   var notificationNameController = TextEditingController();
   var targetController = TextEditingController();
+
+  RegistNotificationPage({
+    Key key,
+    this.paramIndex,
+    this.paramTitle,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

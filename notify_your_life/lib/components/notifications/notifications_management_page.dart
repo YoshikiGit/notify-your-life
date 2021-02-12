@@ -23,7 +23,7 @@ class NotificationsManagementPage extends StatelessWidget {
                 IconButton(
                   icon: Icon(Icons.add),
                   padding: const EdgeInsets.all(15.0),
-                  onPressed: () => naviRegistModal(context),
+                  onPressed: () => naviRegistModal('Regist', 0, context, null),
                 ),
               ]
             ),
@@ -97,7 +97,7 @@ class NotificationsManagementPage extends StatelessWidget {
   Future<void> _showSnackBar(int index, String mode, BuildContext context) async {
 
     if (mode == "Edit") {
-
+      naviRegistModal("Edit", index, context, ntfcList[0]);
     } else if (mode == "Archive") {
       // 通知の削除
       ntfcList.removeAt(index);
@@ -134,7 +134,6 @@ class NotificationsManagementPage extends StatelessWidget {
   }
 
   Future readNotification (BuildContext context) async {
-
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     print(prefs.getString('ntfcList'));
 
@@ -148,14 +147,28 @@ class NotificationsManagementPage extends StatelessWidget {
     }
   }
 
-  void naviRegistModal (BuildContext context) {
-    Navigator.push(
-      context,
-      new MaterialPageRoute<Null>(
-        settings: const RouteSettings(name: "/my-page-2"),
-        builder: (BuildContext context) => RegistNotificationPage(),
-        fullscreenDialog: true,
+  void naviRegistModal (String mode, int index, BuildContext context, NotificationInfoData ntcfData) {
+    if (mode == "Regist") {
+      Navigator.push(
+        context,
+        new MaterialPageRoute<Null> (
+          settings: const RouteSettings(name: "/regist-notification-page"),
+          builder: (context) => RegistNotificationPage(),
+          fullscreenDialog: true,
         ),
-    );
+      );
+    } else {
+      Navigator.push(
+        context,
+        new MaterialPageRoute<Null> (
+          settings: const RouteSettings(name: "/regist-notification-page"),
+          builder: (context) => RegistNotificationPage(
+            paramIndex: index.toString(),
+            paramTitle: ntcfData.title
+          ),
+          fullscreenDialog: true,
+        ),
+      );
+    }
   }  
 }
