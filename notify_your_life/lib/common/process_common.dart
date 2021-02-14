@@ -5,7 +5,7 @@ class ProcessCommon {
   static confirmDialog(BuildContext context, String title, String content, String okSentence, 
     String cancelSentence) async {
       
-        var result = await showDialog<int>(
+    var result = await showDialog<int> (
           context: context,
           barrierDismissible: true,
           builder: (BuildContext context) {
@@ -25,6 +25,6 @@ class ProcessCommon {
             );
           },
         );
-        print('dialog result: $result');
+    return result;
   }
 }

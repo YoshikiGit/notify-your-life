@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import '../../main.dart';
 import 'package:notify_your_life/models/notification_info_data.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import './registNotification/regist_notification_page.dart';
@@ -7,7 +6,14 @@ import '../../common/process_common.dart';
 import 'dart:convert';
 import 'package:flutter_slidable/flutter_slidable.dart';
 
-class NotificationsManagementPage extends StatelessWidget {
+class NotificationsManagementPage extends StatefulWidget {
+  NotificationsManagementPage({Key key}) : super(key: key);
+
+  @override
+  NotificationsManagementPageState createState() => NotificationsManagementPageState();
+}
+
+class NotificationsManagementPageState extends State<NotificationsManagementPage> {
   List<NotificationInfoData> ntfcList = new List<NotificationInfoData>();
 
   @override
@@ -41,6 +47,7 @@ class NotificationsManagementPage extends StatelessWidget {
     );
   }
 
+  // 通知のスライダーを作成
   InkWell menuItem(int index, String title, BuildContext context) {
     return InkWell(
       child: Slidable(
@@ -88,7 +95,7 @@ class NotificationsManagementPage extends StatelessWidget {
         ],
       ),
       onTap: () {
-        execute(context);
+        notify(context);
       },
     );
   }
@@ -100,7 +107,10 @@ class NotificationsManagementPage extends StatelessWidget {
       naviRegistModal("Edit", index, context, ntfcList[0]);
     } else if (mode == "Archive") {
       // 通知の削除
-      ntfcList.removeAt(index);
+      setState(() {
+        // 通知の削除
+        ntfcList.removeAt(index);
+      });
       await executeRegist(ntfcList, context);
     }
   }
@@ -116,14 +126,18 @@ class NotificationsManagementPage extends StatelessWidget {
     await prefs.setString('ntfcList', jsonString);
   }
 
-  execute (BuildContext context)  {
-    ProcessCommon.confirmDialog(
+  // 通知を実施する。
+  notify (BuildContext context)  async {
+    var result = await ProcessCommon.confirmDialog(
       context, 
       "通知確認", 
       "こちらの内容で通知します。", 
       "通知する", 
       "キャンセル"
     );
+    if (result == 1) {
+      print("通知する");
+    }
   }
 
   // 通知の呼び出し
@@ -170,5 +184,10 @@ class NotificationsManagementPage extends StatelessWidget {
         ),
       );
     }
+  }
+
+  @override
+  State<StatefulWidget> createState() {
+      NotificationsManagementPage createState() => NotificationsManagementPage();
   }  
 }
