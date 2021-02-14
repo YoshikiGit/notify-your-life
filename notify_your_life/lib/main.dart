@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import './components/notifications/notifications_management_page.dart';
+import 'package:notify_your_life/components/notifications/notifications_management_page.dart';
 
 void main() {
   runApp(MyApp());
@@ -33,7 +33,7 @@ class _MyHomePageState extends State<MyHomePage> {
   // 初期状態での選択は左のタブ
   int _selectedIndex = 0;
   
-  static List<Widget> _pageList = <Widget>[
+  final pageList = [
     // ページ1の画面
     NotificationsManagementPage(),
     // ページ2の画面
@@ -50,14 +50,9 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
-    // This method is rerun every time setState is called, for instance as done
-    // by the _incrementCounter method above.
-    //
-    // The Flutter framework has been optimized to make rerunning build methods
-    // fast, so that you can just rebuild anything that needs updating rather
-    // than having to individually change instances of widgets.
+ 
     return Scaffold(
-      body: _pageList[_selectedIndex],
+      body: pageList[_selectedIndex],
       // 下のナビゲーションボタン
       bottomNavigationBar: BottomNavigationBar(
         items: const <BottomNavigationBarItem>[
@@ -84,12 +79,17 @@ class _MyHomePageState extends State<MyHomePage> {
         ),
     );
   }
-  
 }
 
 // 仮ページ
-class Page2 extends StatelessWidget {
+class Page2 extends StatefulWidget {
+  Page2({Key key}) : super(key: key);
+
   @override
+  Page2State createState() => Page2State();
+}
+
+class Page2State extends State<Page2> {
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
@@ -102,8 +102,14 @@ class Page2 extends StatelessWidget {
 }
 
 // 仮ページ
-class Page3 extends StatelessWidget {
+class Page3 extends StatefulWidget {
+  Page3({Key key}) : super(key: key);
+
   @override
+  Page3State createState() => Page3State();
+}
+
+class Page3State extends State<Page3> {
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
