@@ -170,6 +170,9 @@ class NotificationsManagementPageState extends State<NotificationsManagementPage
           builder: (context) => RegistNotificationPage(),
           fullscreenDialog: true,
         ),
+      ).then((value) => {
+          setState((){})
+        }
       );
     } else {
       Navigator.push(
@@ -182,6 +185,9 @@ class NotificationsManagementPageState extends State<NotificationsManagementPage
           ),
           fullscreenDialog: true,
         ),
+      ).then((value) => {
+          setState((){})
+        }
       );
     }
   }
